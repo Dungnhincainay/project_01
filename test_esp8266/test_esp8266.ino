@@ -1,33 +1,50 @@
-// Them thu vien
-#include <ESP8266WiFi.h>
-// Thong so WiFi
-const char* ssid = "Wifi Cua Tuan";  //Thay  ten_wifi bang ten wifi nha ban
-const char* password = ""; //Thay mat_khau_wifi bang mat khau cua ban
-void setup(void){
 
-  pinMode(LED_BUILTIN, OUTPUT); 
-// Khoi dong serial de debug
-  Serial.begin(115200);
-// Ket noi voi WiFi
-Serial.print("/n");
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) { //Kiem tra xem trang thai da ket noi chua neu chua thi in ra dau .
-    delay(500);
-    Serial.print(".");
+#define BLYNK_PRINT Serial
+
+
+#include <ESP8266WiFi.h>
+#include <BlynkSimpleEsp8266.h>
+
+// You should get Auth Token in the Blynk App.
+// Go to the Project Settings (nut icon).
+char auth[] = "2kR7YS_qM1q0bFXFEKl84T1u7WwSddn_";
+
+// Your WiFi credentials.
+// Set password to "" for open networks.
+char ssid[] = "Wifi Cua Tuan";
+char pass[] = "";
+
+WidgetLED led1(V1);
+
+BlynkTimer timer;
+
+// V1 LED Widget is blinking
+void blinkLedWidget()
+{
+  if (led1.getValue()) {
+    led1.off();
+    Serial.println("LED on V1: off");
+  } else {
+    led1.on();
+    Serial.println("LED on V1: on");
   }
-  Serial.println("");
-  Serial.println("WiFi connected");
-// Neu da ket noi duoc voi wifi se in ra dia chi IP
-  Serial.println(WiFi.localIP());
-  //digitalWrite(LED_BUILTIN, HIGH);
 }
-void loop() {
-    //while (WiFi.status()) {
-    while (WiFi.status() != WL_CONNECTED) { //Kiem tra xem trang thai da ket noi chua neu chua thi in ra dau .
-    digitalWrite(LED_BUILTIN, HIGH);
-    delay(400);
-  };
-  digitalWrite(LED_BUILTIN, LOW);  // Turn the LED off by making the voltage HIGH
-  delay(800);
-  
+
+void setup()
+{
+  // Debug console
+  Serial.begin(9600);
+
+  Blynk.begin(auth, ssid, pass);
+  // You can also specify server:
+  //Blynk.begin(auth, ssid, pass, "blynk-cloud.com", 80);
+  //Blynk.begin(auth, ssid, pass, IPAddress(192,168,1,100), 8080);
+
+  timer.setInterval(1000L, blinkLedWidget);
+}
+
+void loop()
+{
+  Blynk.run();
+  timer.run();
 }
