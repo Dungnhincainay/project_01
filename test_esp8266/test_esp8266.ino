@@ -1,28 +1,37 @@
+
 #define BLYNK_PRINT Serial
+
+
 #include <ESP8266WiFi.h>
 #include <BlynkSimpleEsp8266.h>
-          
 //#include <SimpleTimer.h>
 
- 
-SimpleTimer timer;
-char auth[] = "C39HJavn-IoVsrHbYA7ea3IqlKhGauFL";
+// You should get Auth Token in the Blynk App.
+// Go to the Project Settings (nut icon).
+char auth[] = "8TytNxie25BVKYolzRm_yLjF1vAGbrCA";
 
 char ssid[] = "Wifi Cua Tuan";
 char pass[] = "";
 
 float t=0;
 float h=0;
+WidgetLED led1(V1);
 
-void setup()
+BlynkTimer timer;
+
+// V1 LED Widget is blinking
+void blinkLedWidget()
 {
-    Serial.begin(9600);
-    Blynk.begin(auth, ssid, pass,"iot.htpro.vn", 8080);
-    
-    timer.setInterval(1000, sendUptime);
+  if (led1.getValue()) {
+    led1.off();
+    Serial.println("LED on V1: off");
+  } else {
+    led1.on();
+    Serial.println("LED on V1: on");
+  }
 }
 
-void sendUptime()
+void setup()
 {
   h = h+0.845 ;
   t = t+1.23 ;
@@ -41,13 +50,18 @@ void sendUptime()
   Serial.print("°C \n");
   Blynk.virtualWrite(V6, t);
   Blynk.virtualWrite(V5, h);
-  
+  // Debug console
+  Serial.begin(9600);
+  Blynk.begin(auth, ssid, pass,"iot.htpro.vn", 8080);
+  //Blynk.begin(auth, ssid, pass);
+  //Blynk.begin(auth, ssid, pass, "blynk-cloud.com", 80);
+  //Blynk.begin(auth, ssid, pass, IPAddress(192,168,1,100), 8080);
+
+  timer.setInterval(1000L, blinkLedWidget);
 }
 
 void loop()
 {
   Blynk.run();
   timer.run();
-    
-
 }
