@@ -35,19 +35,29 @@ void setup()
 BLYNK_CONNECTED() {
     Blynk.syncAll();
 }
-BLYNK_WRITE(V1)
+// BLYNK_WRITE(V1)
+// {   
+//   value1 = param.asFloat(); // Get value as integer
+// }
+BLYNK_WRITE(V1,V7,V8,V9)
 {   
-  value1 = param.asFloat(); // Get value as integer
+  //value1 = param.asFloat(); // Get value as integer
   // The param can contain multiple values, in such case:
-  float x = param[0].asInt();
-  float y = param[1].asInt();
-//  Serial.print("\nGia tri V1: ");                  // Hiển thị trên monitor
-//  Serial.print(value1);
-//  Serial.print(" ");                  // Hiển thị trên monitor
-//  Serial.print(x);
-//  Serial.print(" ");                  // Hiển thị trên monitor
-//  Serial.print(y);
-//  delay(1500);
+  value1 = param[0].asFloat();
+  float x = param[1].asFloat();
+  float y = param[2].asFloat();
+  float z = param[3].asFloat();
+
+ Serial.print("\nGia tri V1: ");                  // Hiển thị trên monitor
+ Serial.print(value1);
+ Serial.print(" ");                  // Hiển thị trên monitor
+ Serial.print(x);
+ Serial.print("");                  // Hiển thị trên monitor
+ Serial.print(y);
+ Serial.print(" ");                  // Hiển thị trên monitor
+ Serial.print(z);
+
+ delay(1500);
 }
 void sendUptime()
 {
