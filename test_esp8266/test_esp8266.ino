@@ -15,6 +15,7 @@ char pass[] = "";
 
 float t=0;
 float h=0;
+
 WidgetLED led1(V1);
 
 BlynkTimer timer;
@@ -29,10 +30,7 @@ void blinkLedWidget()
     led1.on();
     Serial.println("LED on V1: on");
   }
-}
 
-void setup()
-{
   h = h+0.845 ;
   t = t+1.23 ;
   if (h>=100){
@@ -50,7 +48,12 @@ void setup()
   Serial.print("°C \n");
   Blynk.virtualWrite(V6, t);
   Blynk.virtualWrite(V5, h);
-  // Debug console
+  
+}
+
+void setup()
+{
+
   Serial.begin(9600);
   Blynk.begin(auth, ssid, pass,"iot.htpro.vn", 8080);
   //Blynk.begin(auth, ssid, pass);
