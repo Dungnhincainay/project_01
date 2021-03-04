@@ -31,22 +31,22 @@ lastBtnStatus = digitalRead(BUTTON);
 }
 
 void loop() {
-Blynk.run();
-if (checkData == true) {
-digitalWrite(LED, VIRTUAL_PIN);
-checkData == false;
-}
+    Blynk.run();
+    if (checkData == true) {
+    digitalWrite(LED, VIRTUAL_PIN);
+    checkData == false;
+    }
 
-if (digitalRead(BUTTON) == 0)
-{
-delay(100);
-if (digitalRead(BUTTON) != 0)
-{
-VIRTUAL_PIN = !VIRTUAL_PIN;
-digitalWrite(LED, VIRTUAL_PIN);
-Blynk.virtualWrite(V0, VIRTUAL_PIN);
-Serial.println("In Here" + String(VIRTUAL_PIN));
-}
-}
+    if (digitalRead(BUTTON) == 0)
+    {
+    delay(100);
+      if (digitalRead(BUTTON) != 0)
+        {
+       VIRTUAL_PIN = !VIRTUAL_PIN;
+       digitalWrite(LED, VIRTUAL_PIN);
+       Blynk.virtualWrite(V0, VIRTUAL_PIN);
+       Serial.println("In Here" + String(VIRTUAL_PIN));
+        }
+    }
 
 }
