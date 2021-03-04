@@ -25,6 +25,14 @@ unsigned long Ago = 0;
 unsigned long Now = 0;
 const long Set_time = 300;
 
+BLYNK_CONNECTED() {
+    Blynk.syncAll();
+}
+ BLYNK_WRITE(V1)
+ {   
+   value1 = param.asFloat(); // Get value as integer
+ }
+//Blynk.setProperty(V10, "url", 1, "https://i0.wp.com/www.makerlab.vn/wp-content/uploads/2020/04/pngbarn.png?fit=86%2C117&ssl=1");
 void setup()
 {
     Serial.begin(115200);
@@ -32,33 +40,7 @@ void setup()
     pinMode(LED_BUILTIN, OUTPUT);
     timer.setInterval(500, sendUptime);
 }
-BLYNK_CONNECTED() {
-    Blynk.syncAll();
-}
-// BLYNK_WRITE(V1)
-// {   
-//   value1 = param.asFloat(); // Get value as integer
-// }
-BLYNK_WRITE(V1,V7,V8,V9)
-{   
-  //value1 = param.asFloat(); // Get value as integer
-  // The param can contain multiple values, in such case:
-  value1 = param[0].asFloat();
-  float x = param[1].asFloat();
-  float y = param[2].asFloat();
-  float z = param[3].asFloat();
 
- Serial.print("\nGia tri V1: ");                  // Hiển thị trên monitor
- Serial.print(value1);
- Serial.print(" ");                  // Hiển thị trên monitor
- Serial.print(x);
- Serial.print("");                  // Hiển thị trên monitor
- Serial.print(y);
- Serial.print(" ");                  // Hiển thị trên monitor
- Serial.print(z);
-
- delay(1500);
-}
 void sendUptime()
 {
   h = h+0.845 ;             // Đọc giá tri nhiệt độ, độ ẩm không khí
