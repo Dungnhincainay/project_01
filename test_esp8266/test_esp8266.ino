@@ -15,6 +15,10 @@ float hum=0;    // V6 - Do am Dat
 int flag=0;
 
 
+
+
+
+//////
  // V1 V2 : Chọn chế độ
  float value1;
  float Kp =0;      //Kp
